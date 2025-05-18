@@ -36,6 +36,7 @@
 
 # 5 git init
 # 6 git add .
+# recuperar todo git checkout --.
 # 7 git commit -m "nombre del commit"
 # 8 para recuperar algo borrado git checkout --.
 
@@ -47,6 +48,13 @@
 # 14 npm install jsonwebtoken
 # 15 npm install google-auth-library --save
 # 16 npm i express-fileupload 
+ # //Fileupload - carga de archivos copiar esto en server  importar fileupload
+ #   this.app.use(fileUpload({
+ #    //limits: { fileSize: 50 * 1024 * 1024 },
+ #    useTempFiles : true,
+ #    tempFileDir : '/tmp/'
+ #   }));
+
 # 17 npm i cloudinary
 
 # remover archivo en git:  git rm .env --cached

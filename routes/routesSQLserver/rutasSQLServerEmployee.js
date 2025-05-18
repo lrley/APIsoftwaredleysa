@@ -1,6 +1,3 @@
-
-
-
 const { Router } = require('express');
 const { empoyeesGet, employeeGet, employeePost, employeePut, employeeDelete } = require('../../controllers/controllersSQLserver/controllersSQLEmployee');
 
