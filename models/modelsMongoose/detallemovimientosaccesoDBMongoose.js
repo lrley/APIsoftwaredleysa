@@ -1,5 +1,6 @@
 const {Schema, model} = require('mongoose');
 const { type } = require('os');
+const { fechaEcuador } = require('../../helpers/fechaActual');
 
 const Detallemovimientosacceso = Shema({
 
@@ -57,6 +58,7 @@ const Detallemovimientosacceso = Shema({
     fecha_Actual:{
         type: Date,
         required: true,
+        default: fechaEcuador(),
     },
 
 

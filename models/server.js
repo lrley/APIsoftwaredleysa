@@ -1,13 +1,22 @@
 const express = require('express');
 const cors = require ('cors')
 const fileUpload = require('express-fileupload');
-const { db_Connection_Mongoose, db_Connection_SQLServer, db_Connection_MySql } = require('../database/configDB');
+const { db_Connection_Mongoose, db_Connection_SQLServer, db_Connection_MySql, db_Connection_Mongoose_Desarrollo} = require('../database/configDB');
 
 //Enlace con Rutas SQLserver
 const rutasSQLServerEmployee =  require('../routes/routesSQLserver/rutasSQLServerEmployee');
+const rutaSQLServerDepart = require('../routes/routesSQLserver/rutasSQLServerParametros/rutasSqlServerDepart');
+const rutaSQLServerJob = require('../routes/routesSQLserver/rutasSQLServerParametros/rutasSqlServerJob');
+const rutaSQLServerStatus = require('../routes/routesSQLserver/rutasSQLServerParametros/rutasSqlServerStatus');
+const rutaSQLServerEducation= require('../routes/routesSQLserver/rutasSQLServerParametros/rutasSqlServerEducation');
+const rutaSQLServerNation= require('../routes/routesSQLserver/rutasSQLServerParametros/rutasSqlServerNation')
+const rutaSQLServerNative= require('../routes/routesSQLserver/rutasSQLServerParametros/rutasSqlServerNative')
+const rutaSQLServerPositions= require('../routes/routesSQLserver/rutasSQLServerParametros/rutasSqlServerPositions')
+const rutaSQLServerPolity= require('../routes/routesSQLserver/rutasSQLServerParametros/rutasSqlServerPolity')
 
 //Enlace con Rutas base Mysql
 const RutaDetalleMovimientoMysql= require('../routes/routesMysql/rutasMysqlDetalleMovimientoAcceso');
+
 
 //Enlace con Rutas Base Mongoose
 const RutaDetalleMovimientoMongoose = require('../routes/routesMongoose/rutasMongooseDetalleMovimientosacceso');
@@ -20,8 +29,18 @@ class Server{  //creacion de la clase Server
             this.app= express();
             this.port = process.env.PORT || '3000';
             
+        
+
             this.apiRutasSQLSERVER = {
-              employee: '/api/empleadosqlserver',
+              employee: '/api/empleadosqlserver/',
+                depart: '/api/departsqlserver/',
+                   job: '/api/jobsqlserver/',
+                status: '/api/statussqlserver/',
+             education: '/api/educationsqlserver/',
+                nation: '/api/nationsqlserver/',
+                native: '/api/nativesqlserver/',
+             positions: '/api/positionssqlserver/',
+                polity: '/api/politysqlserver/',
             }
 
             this.apirutasMYSQL={
@@ -31,12 +50,13 @@ class Server{  //creacion de la clase Server
             this.apiRutasMONGOOSE={
                 DetalleMovimientoMongoose:'/api/detallemovimientomongoose/',
                 RutaUsuario:'/api/usuariosmongoose/',
-                RutaRolMongoose:'/api/rolesmongoose/'
+                RutaRolMongoose:'/api/rolesmongoose/',
             }
 
 
             //CONECTAR A LAS BASES DE DATOS MONGOOSE MYSQL SQLSERVER
-            this.conectarDBMongooseDLACCESS();
+          //  this.conectarDBMongooseDLACCESS();
+            this.conectarDBMongooseDLACCESS_Desarrollo();
             this.conectarDBSqlServer();
             this.conectarDBMysql();
             
@@ -51,6 +71,15 @@ class Server{  //creacion de la clase Server
         async conectarDBMongooseDLACCESS(){
             await db_Connection_Mongoose();
 
+        }
+
+
+        async conectarDBMongooseDLACCESS_Desarrollo(){
+           await db_Connection_Mongoose_Desarrollo();
+            /*// await db_Connection_Mongoose_Desarrollo();
+            this.devConnection = await db_Connection_Mongoose_Desarrollo();
+            this.app.set('devConnection', this.devConnection); // así lo haces accesible en controllers*/
+        
         }
 
         //Funcion de conexion a base de datos SQLSERVER
@@ -88,8 +117,8 @@ class Server{  //creacion de la clase Server
 
             //Fileupload - carga de archivos
             this.app.use(fileUpload({
-                //limits: { fileSize: 50 * 1024 * 1024 },
-                useTempFiles : true,
+                limits: { fileSize: 480 * 640 },
+                useTempFiles : false,
                 tempFileDir : '/tmp/'
             }));
         }
@@ -98,7 +127,14 @@ class Server{  //creacion de la clase Server
           
             //Rutas de conexion con SQLSERVER
           this.app.use( this.apiRutasSQLSERVER.employee,rutasSQLServerEmployee);  // Conecta con Empleados SQLserver
-          
+          this.app.use(this.apiRutasSQLSERVER.depart,rutaSQLServerDepart);
+          this.app.use(this.apiRutasSQLSERVER.job,rutaSQLServerJob);
+          this.app.use(this.apiRutasSQLSERVER.status,rutaSQLServerStatus);
+          this.app.use(this.apiRutasSQLSERVER.education,rutaSQLServerEducation);
+          this.app.use(this.apiRutasSQLSERVER.nation,rutaSQLServerNation);
+          this.app.use(this.apiRutasSQLSERVER.native,rutaSQLServerNative);
+          this.app.use(this.apiRutasSQLSERVER.positions,rutaSQLServerPositions);
+          this.app.use(this.apiRutasSQLSERVER.polity,rutaSQLServerPolity);
           //Rutas de conexion con MySQL
           this.app.use(this.apirutasMYSQL.DetalleMovimientoMysql,RutaDetalleMovimientoMysql);  //Conecta con Detalle Movimiento Mysql
           

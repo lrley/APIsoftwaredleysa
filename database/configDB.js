@@ -1,11 +1,12 @@
 
 const mongoose = require('mongoose');
 const { Sequelize } = require('sequelize');
+const { fechaEcuador } = require('../helpers/fechaActual');
 
 
 const db_Connection_Mongoose= async()=>{
         try {
-          console.log('entro a db conecction mongoose');
+          console.log('entro a db conecction mongoose....');
                 await mongoose.connect(process.env.DB_AASFF_MONGO);
                 console.log(`Base de datos DLACCESS MONGOOSE ONLINE`);
         } catch (error) {
@@ -13,6 +14,20 @@ const db_Connection_Mongoose= async()=>{
                 throw new Error('Error a la hora de iniciar la base de datos')
         }
 }
+
+
+const db_Connection_Mongoose_Desarrollo = async()=>{
+    try {
+        await mongoose.connect(process.env.BASE_MONGO_DESARROLLO)
+        console.log('Base de Datos Mongoose de Desarrollo Conectada...', fechaEcuador());
+        
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error a la hora de iniciar la base de datos Desarrollo')
+    }
+
+}
+
 
 const db_Connection_SQLServer = new Sequelize('AASFF', 'DLACCESS', 'Dleysa253018+-', {
  
@@ -58,23 +73,14 @@ const db_Connection_MySql = new Sequelize('dbsistema', 'root', 'Dleysa253018+-',
     dialect: 'mysql',
     //logging: false,
 
-})
-
-
-
-
-
-
-
-
-
-
+})  
 
 
 module.exports={
-
 db_Connection_Mongoose,
 db_Connection_MySql,
 db_Connection_SQLServer,
+db_Connection_Mongoose_Desarrollo,
 
 }
+

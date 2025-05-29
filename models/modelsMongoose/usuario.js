@@ -1,7 +1,8 @@
 
 const {Schema, model} = require('mongoose');
+const { fechaEcuador } = require('../../helpers/fechaActual');
 
-const SchemaUsuario = Schema({
+const usuarioSchema = Schema({
 
     nombre:{
         type: String,
@@ -14,13 +15,13 @@ const SchemaUsuario = Schema({
         unique: true
     },
 
-    correo:{
+    email:{
         type: String,
         required: [true, 'El Correo es Obligatorio'],
         unique: true
     },
 
-    password:{
+    clave:{
         type: String,
         required: [true, 'La contraseña es Obligatorio']
     },
@@ -48,17 +49,20 @@ const SchemaUsuario = Schema({
 
     fechacreacion:{
         type: Date,
+        default: fechaEcuador(),
         required: true,
     },
 
 
+
+
 });
 
-SchemaUsuario.methods.toJSON= function(){
+usuarioSchema.methods.toJSON= function(){
 
-    const {_id, __v,password, ...user}= this.toObject();
-    user.uid=_id
+    const {/* _id, */ /* __v, */clave, ...user}= this.toObject();
+  //  user.uid=_id
     return user;
 }
 
-module.exports= model('Usuario',SchemaUsuario);
+module.exports= model('Usuario',usuarioSchema);

@@ -1,11 +1,13 @@
 
 const {Schema, model} = require('mongoose');
+const { fechaEcuador } = require('../../helpers/fechaActual');
 
 const SchemaRol = Schema({
 
     rol:{
         type: String,
         required: true,
+        unique: true
     },
     
     
@@ -18,6 +20,7 @@ const SchemaRol = Schema({
     fechacreacion:{
         type: Date,
         required: true,
+        default: fechaEcuador(),
     },
 
 

@@ -99,3 +99,37 @@
 # process.env.SEQUELIZE_DISABLE_DEPRECATION_WARNING = 'true';
 
 # EXEC xp_readerrorlog 0,1, N'SERVER IS LISTENING ON';  (sirve para saber que puerto esta usando SQLSERVER)
+
+# DETALLE DE TABLAS DE PARAMETROS
+
+#  Unidad Organica / Membresia / Departamento
+#  Tabla Depart depart_id,upper_depart_id,depart_name,principal
+#  Software T Departamento
+  
+#  Denominacion de puesto / Tipo de Usuario
+#  Tabla JOB  job_id,job_name
+#  software T  position
+  
+#  modalidad laboral / GYM1
+#  Tabla STATUS status_id,status_name
+#  Software T tipo de personal 
+  
+#  nivel Academico / GYM2
+#  Tabla EDUCATION edu_id,education
+#  software Educacion  
+  
+#  nacionalidad / GYM3
+#  Tabla NATION nation_id,nation_name
+#  software T nacionalidad 
+  
+#  Residencia / GYM4
+#  Tabla NATIVE native_id,native_name
+#  software T Residencia 
+  
+#  Titulo Academico / GYM5
+#  Tabla POSITIONS position_id,position_name
+#  Software T Titulo
+  
+#  lugar de nacimiento / GYM6
+#  Tabla POLITY polity_id,polity_name
+#  Software T Status Politico

@@ -1,3 +1,5 @@
+
+
 const verificacionNumero=(numero='0',cifra=8)=>{
 
         if(!isNaN(parseInt(numero))){

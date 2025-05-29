@@ -1,3 +1,4 @@
+const {response, request}= require('express');
 const moment = require('moment-timezone');
 
 /**
@@ -70,10 +71,33 @@ const fechaEcuador=()=>{
 }
 
 
+const verificaFecha=async(fechainicio, fechafin)=>{
+ 
+    const formatoFecha = 'YYYY-MM-DD HH:mm:ss';
+    
+    const fechaInicioValida = moment(fechainicio, formatoFecha, true);
+    const fechaFinValida = moment(fechafin, formatoFecha, true);
+    let msg='ok';
+        if (!fechaInicioValida.isValid() || !fechaFinValida.isValid()) {
+            return {msg:'Una de las fechas es invalidas'}
+        }
+
+        if (fechaFinValida.isBefore(fechaInicioValida)) {
+            return { msg:'No puede ser Fecha Fin menor que fecha de Inicio' }
+        }
+
+         const fechaInit = new Date(fechaInicioValida.subtract(5, 'hours').format());
+         const fechaF = new Date(fechaFinValida.subtract(5, 'hours').format());
+     return {fechaInit,fechaF,msg}   
+
+
+}
+
 module.exports = {
     convertirFechaEcuador,
     obtenerFechaActualEcuador,
-    fechaEcuador
+    fechaEcuador,
+    verificaFecha
 };
 
 

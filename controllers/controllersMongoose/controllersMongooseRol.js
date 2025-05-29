@@ -1,6 +1,6 @@
+const {response, request}= require('express');
+const Rol =  require('../../models/modelsMongoose/rolDb')
 
-
-const {response, request}= require('express')
 
 
 
@@ -33,8 +33,15 @@ const rolMongooseGet= (req= request, res= response) => {
 
 const rolMongoosePost = (req= request, res= response) => {
 
+   const {rol}=req.body;
+
+   
+
+   const role =  new Rol({rol});
+   role.save();
+
    res.status(400).json({
-    msg:`Todo ok con Post Rol Mongoose`
+    role
  })
 
 

@@ -131,10 +131,15 @@ Employee.init(
             type: DataTypes.STRING(64),
             allowNull: true
             },
+          
+                     
             photo: {
             type: DataTypes.BLOB('long'),
             allowNull: true
             },
+          
+          
+          
             memo: {
             type: DataTypes.TEXT,
             allowNull: true
